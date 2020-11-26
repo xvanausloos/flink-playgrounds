@@ -21,6 +21,6 @@ package org.apache.flink.playgrounds.spendreport;
 public class UnimplementedException extends RuntimeException {
 
     public UnimplementedException() {
-        super("This method has not yet been implemented");
+        super();
     }
 }

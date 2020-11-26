@@ -28,8 +28,17 @@ import static org.apache.flink.table.api.Expressions.*;
 
 public class SpendReport {
 
-    public static Table report(Table transactions) {
-        throw new UnimplementedException();
+    public static Table report(Table transactions) throws UnimplementedException {
+        return transactions.select(
+                $("account_id"),
+                $("transaction_time").floor(TimeIntervalUnit.HOUR).as("log_ts"),
+                $("amount"))
+                .groupBy($("account_id"), $("log_ts"))
+                .select(
+                        $("account_id"),
+                        $("log_ts"),
+                        $("amount").sum().as("amount"));
+
     }
 
     public static void main(String[] args) throws Exception {
